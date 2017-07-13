@@ -10,4 +10,7 @@ build/
 .test_env/
 third_party/
 
+*.pyc
+*.pb.h
+*_demo
 *~

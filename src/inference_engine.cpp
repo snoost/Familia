@@ -26,6 +26,7 @@ InferenceEngine::InferenceEngine(const std::string& model_dir,
     if (type == SamplerType::GibbsSampling) {
         _sampler = std::unique_ptr<Sampler>(new GibbsSampler(_model));
     } else if (type == SamplerType::MetropolisHastings) {
+        std::cout << "MH Sampler" << std::endl;
         _sampler = std::unique_ptr<Sampler>(new MHSampler(_model));
     }
 
