@@ -33,13 +33,13 @@ void print_doc_topic_dist(const vector<Topic>& topics) {
 int main(int argc, char* argv[]) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     google::SetVersionString("1.0.0.0");
-    string usage = string("Usage: ./semantic_matching_demo --model_dir=\"PATH/TO/MODEL\" ") + 
+    string usage = string("Usage: ./semantic_matching_demo --model_dir=\"PATH/TO/MODEL\" ") +
                    string("--conf_file=\"lda.conf\" ");
     google::SetUsageMessage(usage);
     google::ParseCommandLineFlags(&argc, &argv, true);
 
     InferenceEngine engine(FLAGS_model_dir, FLAGS_conf_file, SamplerType::MetropolisHastings);
-   
+
     std::string vocab_path = FLAGS_model_dir + "/vocab_info.txt";
     Tokenizer* tokenizer = new SimpleTokenizer(vocab_path);
 
@@ -50,6 +50,12 @@ int main(int argc, char* argv[]) {
         getline(cin, line);
         vector<string> input;
         tokenizer->tokenize(line, input);
+
+        for (size_t i = 0; i < input.size(); ++i) {
+          std::cout << input[i] << ' ';
+        }
+        std::cout << endl;
+
         if (engine.model_type() == ModelType::LDA) {
             LDADoc doc;
             engine.infer(input, doc);
@@ -81,7 +87,7 @@ int main(int argc, char* argv[]) {
             sentences.clear();
         }
     }
-        
+
     delete tokenizer;
 
     return 0;

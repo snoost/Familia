@@ -41,7 +41,7 @@ void SimpleTokenizer::tokenize(const std::string& text, std::vector<std::string>
             for (int j = i; j < i + _max_word_len && j < text_len; ++j) {
                 word.push_back(text[j]);
                 if (_vocab.find(word) != _vocab.end()) {
-                    found_word = word; 
+                    found_word = word;
                 }
             }
             if (found_word.size() > 0) {
